@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Robinsons Auctioneers</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="auth-panel" id="authPanel" aria-labelledby="loginTitle">
+        <div class="brand-block">
+          <p class="eyebrow">Robinsons Auctioneers</p>
+          <h1 id="loginTitle">Customer auction history</h1>
+          <p class="intro">
+            Secure customer access for reviewing live auction wins across Robinsons branches.
+          </p>
+        </div>
+
+        <form class="login-form" id="loginForm">
+          <label>
+            Email
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="username"
+              value="amelia.ward@example.com"
+              required
+            />
+          </label>
+          <label>
+            Password
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              value="Auction2025!"
+              required
+            />
+          </label>
+          <button class="primary-action" type="submit">Sign in</button>
+          <p class="form-error" id="loginError" role="alert"></p>
+        </form>
+      </section>
+
+      <section class="dashboard is-hidden" id="dashboard" aria-labelledby="dashboardTitle">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Robinsons Auctioneers</p>
+            <h1 id="dashboardTitle">Won auction history</h1>
+          </div>
+          <button class="secondary-action" id="signOut" type="button">Sign out</button>
+        </header>
+
+        <section class="summary-strip" aria-label="Customer summary">
+          <div>
+            <span class="summary-label">Customer</span>
+            <strong id="customerName">-</strong>
+          </div>
+          <div>
+            <span class="summary-label">Auctions won</span>
+            <strong id="auctionCount">0</strong>
+          </div>
+          <div>
+            <span class="summary-label">Total final bids</span>
+            <strong id="totalValue">£0</strong>
+          </div>
+          <div>
+            <span class="summary-label">Preferred branch</span>
+            <strong id="preferredBranch">-</strong>
+          </div>
+        </section>
+
+        <section class="toolbar" aria-label="Auction filters">
+          <label>
+            Search
+            <input id="searchInput" type="search" placeholder="Title, branch, description" />
+          </label>
+          <label>
+            Branch
+            <select id="branchFilter">
+              <option value="all">All branches</option>
+            </select>
+          </label>
+          <label>
+            Sort
+            <select id="sortOrder">
+              <option value="recent">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="highest">Highest bid</option>
+              <option value="lowest">Lowest bid</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="auction-grid" id="auctionGrid" aria-live="polite"></section>
+
+        <section class="empty-state is-hidden" id="emptyState">
+          <h2>No matching auction wins</h2>
+          <p>Adjust the search or branch filter to view more records.</p>
+        </section>
+
+        <section class="section-heading" aria-labelledby="ongoingTitle">
+          <div>
+            <p class="eyebrow">Live catalogue</p>
+            <h2 id="ongoingTitle">Ongoing auctions</h2>
+          </div>
+          <div class="section-actions">
+            <span id="ongoingCount">10 active lots</span>
+            <button class="secondary-action" id="viewOngoingPage" type="button">View full page</button>
+          </div>
+        </section>
+
+        <section class="auction-grid" id="ongoingGrid" aria-label="Ongoing auction lots"></section>
+      </section>
+
+      <section class="dashboard is-hidden" id="ongoingPage" aria-labelledby="ongoingPageTitle">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Live catalogue</p>
+            <h1 id="ongoingPageTitle">Ongoing auctions</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="ghost-action" id="backToDashboard" type="button">Back to history</button>
+            <button class="secondary-action" id="signOutOngoing" type="button">Sign out</button>
+          </div>
+        </header>
+
+        <section class="summary-strip" aria-label="Ongoing auction summary">
+          <div>
+            <span class="summary-label">Active lots</span>
+            <strong id="fullOngoingCount">10</strong>
+          </div>
+          <div>
+            <span class="summary-label">Current bid total</span>
+            <strong id="fullOngoingTotal">£0</strong>
+          </div>
+          <div>
+            <span class="summary-label">Next closing</span>
+            <strong id="nextClosing">-</strong>
+          </div>
+          <div>
+            <span class="summary-label">Branches</span>
+            <strong id="ongoingBranches">-</strong>
+          </div>
+        </section>
+
+        <section class="toolbar" aria-label="Ongoing auction filters">
+          <label>
+            Search
+            <input id="ongoingSearchInput" type="search" placeholder="Title, branch, description" />
+          </label>
+          <label>
+            Branch
+            <select id="ongoingBranchFilter">
+              <option value="all">All branches</option>
+            </select>
+          </label>
+          <label>
+            Sort
+            <select id="ongoingSortOrder">
+              <option value="closing">Closing soon</option>
+              <option value="highest">Highest current bid</option>
+              <option value="lowest">Lowest current bid</option>
+              <option value="bids">Most bids</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="auction-grid full-catalogue-grid" id="fullOngoingGrid" aria-live="polite"></section>
+
+        <section class="empty-state is-hidden" id="ongoingEmptyState">
+          <h2>No matching ongoing auctions</h2>
+          <p>Adjust the search or branch filter to view more live lots.</p>
+        </section>
+      </section>
+
+      <section class="auction-detail is-hidden" id="auctionDetailPage" aria-labelledby="detailTitle">
+        <header class="topbar detail-topbar">
+          <div>
+            <p class="eyebrow">Live auction</p>
+            <h1 id="detailTitle">Auction detail</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="ghost-action" id="backFromDetail" type="button">Back</button>
+            <button class="secondary-action" id="signOutDetail" type="button">Sign out</button>
+          </div>
+        </header>
+
+        <section class="detail-layout">
+          <div class="detail-media" id="detailMedia" aria-hidden="true"></div>
+          <article class="detail-panel">
+            <span class="live-badge">Live now</span>
+            <h2 id="detailAuctionTitle">-</h2>
+            <p id="detailDescription">-</p>
+
+            <div class="detail-bid-box">
+              <span>Current bid</span>
+              <strong id="detailCurrentBid">£0</strong>
+            </div>
+
+            <div class="metadata detail-metadata">
+              <div>
+                <span>Closes</span>
+                <strong id="detailCloseDate">-</strong>
+              </div>
+              <div>
+                <span>Branch</span>
+                <strong id="detailBranch">-</strong>
+              </div>
+              <div>
+                <span>Total bids</span>
+                <strong id="detailBids">0</strong>
+              </div>
+              <div>
+                <span>Status</span>
+                <strong>Accepting bids</strong>
+              </div>
+            </div>
+
+            <button class="primary-action detail-action" type="button">Register interest</button>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

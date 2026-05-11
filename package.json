@@ -1,0 +1,13 @@
+{
+  "name": "robinsons-auctioneers-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "COMP60040 Robinsons Auctioneers web app with optional MySQL backend.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.3",
+    "mysql2": "^3.9.2"
+  }
+}
